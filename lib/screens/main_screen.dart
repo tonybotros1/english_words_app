@@ -1,3 +1,4 @@
+import 'package:english_words_app/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,38 @@ class MainScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('All Words'),
         centerTitle: true,
-        backgroundColor: const Color(0xff2ed573),
+        backgroundColor: mainColor,
+      ),
+      floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: mainColor,
+        onPressed: () {
+          Get.dialog(AlertDialog(
+            title: const Text('Add new word!'),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Username'),
+                ),
+                TextFormField(
+                  decoration: InputDecoration(labelText: 'Password'),
+                  obscureText: true,
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  // Close dialog
+                  Get.back();
+                },
+                child: Text('OK'),
+              ),
+            ],
+          ));
+        },
+        child: Icon(Icons.add),
       ),
       body: GetBuilder<MainScreenController>(
           init: MainScreenController(),
