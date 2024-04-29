@@ -31,7 +31,6 @@ class DatabaseHelper {
         enword TEXT,
         arword TEXT,
         description TEXT,
-        priority INTEGER,
         date TEXT,
         favorite BOOLEAN
       )

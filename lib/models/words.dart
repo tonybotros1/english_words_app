@@ -3,7 +3,6 @@ class Word {
   String? enWord;
   String? arWord;
   String? description;
-  int? priority;
   String? date;
   bool? favorite;
 
@@ -14,7 +13,7 @@ class Word {
       this.enWord,
       this.favorite,
       this.id,
-      this.priority});
+      });
 
 
       Word.fromJson(Map<String, dynamic> json) {
@@ -22,7 +21,6 @@ class Word {
     enWord = json['enWord'];
     arWord = json['arWord'];
     description = json['description'];
-    priority = json['priority'];
     date = json['date'];
     favorite = json['favorite'];
   }
@@ -33,7 +31,6 @@ class Word {
     data['enWord'] = enWord;
     data['arWord'] = arWord;
     data['description'] = description;
-    data['priority'] = priority;
     data['date'] = date;
     data['favorite'] = favorite;
     return data;
