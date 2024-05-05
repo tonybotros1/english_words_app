@@ -4,7 +4,7 @@ class Word {
   String? arWord;
   String? description;
   String? date;
-  bool? favorite;
+  int? favorite;
 
   Word(
       {this.arWord,
