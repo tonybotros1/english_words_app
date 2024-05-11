@@ -1,6 +1,9 @@
 import 'package:english_words_app/utils/db_helper.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'dart:async';
+
+import 'package:get/get_rx/get_rx.dart';
 
 class MainScreenController extends GetxController {
   TextEditingController enword = TextEditingController();
@@ -9,21 +12,21 @@ class MainScreenController extends GetxController {
   var data = [].obs;
   List wordsCard = [];
 
+  late Timer timer;
+
+  RxBool isInScreen = RxBool(true);
+
   @override
   void onInit() {
-    // deleteData(1);
     super.onInit();
     fetchData();
-  }
-
-  deleteData(id) async {
-    var dbHelper = DatabaseHelper();
-    await dbHelper.delete(id, 'wordsTable');
+    // timer = Timer.periodic(const Duration(seconds: 2), (_) => fetchData());
   }
 
   fetchData() async {
     var dbHelper = DatabaseHelper();
     data.value = await dbHelper.queryAllOrderBy('wordsTable');
     print(data);
+    print('fffffffffffffffffffffffffff');
   }
 }

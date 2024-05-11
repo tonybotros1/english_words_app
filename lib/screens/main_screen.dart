@@ -1,6 +1,7 @@
 import 'package:english_words_app/consts.dart';
 import 'package:english_words_app/models/words.dart';
 import 'package:english_words_app/screens/add_new_word_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,7 +18,8 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      // backgroundColor: Colors.white,
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         title: const Text(
           'All Words',
@@ -60,8 +62,9 @@ class MainScreen extends StatelessWidget {
                                   date.substring(0, date.length - 16);
                               return GestureDetector(
                                 onTap: () {
+                                  controller.isInScreen.value = false;
                                   Get.to(
-                                    () => const WordDetailsScreen(),
+                                    () => WordDetailsScreen(),
                                     arguments: Word(
                                       arWord: wordsCard['arword'],
                                       enWord: wordsCard['enword'],
@@ -70,76 +73,84 @@ class MainScreen extends StatelessWidget {
                                       favorite: wordsCard['favorite'],
                                       id: wordsCard['id'],
                                     ),
+                                    transition: Transition.size,
                                   );
                                 },
-                                child: SizedBox(
-                                    height: 200,
-                                    child: Card(
-                                      elevation: 10,
-                                      shadowColor: Colors.grey,
-                                      surfaceTintColor: cardColor,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  FittedBox(
-                                                    child: Text(
-                                                      cuttedDate,
-                                                      style: GoogleFonts.mooli(
-                                                        fontSize: 20,
-                                                        color: mainColor,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: [
-                                                  FittedBox(
-                                                    child: Text(
-                                                      wordsCard['enword'],
-                                                      style: GoogleFonts.mooli(
-                                                        fontSize: 30,
-                                                        color: Colors.grey[700],
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  FittedBox(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                      height: null,
+                                      child: Card(
+                                          elevation: 10,
+                                          shadowColor: Colors.grey,
+                                          // shadowColor: Colors.white,
+                                          color: cardColor,
+                                          surfaceTintColor: cardColor,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(32.0),
+                                            child: Column(
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Flexible(
                                                       child: Text(
-                                                    wordsCard['arword'],
-                                                    style: GoogleFonts.mooli(
-                                                      fontSize: 25,
-                                                      color: Colors.grey[600],
-                                                      // fontWeight: FontWeight.bold,
+                                                        // 'tony botros is the best in the whole world',
+                                                        wordsCard['enword'],
+                                                        style:
+                                                            GoogleFonts.mooli(
+                                                          fontSize: 30,
+                                                          // color:
+                                                          //     Colors.grey[700],
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                                const SizedBox(
+                                                  height: 20,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.end,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Text(
+                                                        cuttedDate,
+                                                        style:
+                                                            GoogleFonts.mooli(
+                                                          fontSize: 20,
+                                                          color: Colors
+                                                              .blue.shade300,
+                                                          // fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ))
-                                                ],
-                                              ),
+                                                    Flexible(
+                                                      child: Text(
+                                                        wordsCard['arword'],
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        // 'طوني بطرس هو الأفضل في العالم كله',
+                                                        style:
+                                                            GoogleFonts.mooli(
+                                                          fontSize: 25,
+                                                          color: Colors.white,
+                                                          // fontWeight: FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    )),
+                                          ))),
+                                ),
                               );
                             }),
                       )
@@ -165,55 +176,68 @@ class MainScreen extends StatelessWidget {
 
 
 
-//  Card(
-//                         elevation: 10,
-//                         shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(15.0),
-//                         ),
-//                         shadowColor: Colors.grey[300],
-//                         child: Padding(
-//                           padding: const EdgeInsets.all(20.0),
-//                           child: Column(
-//                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-//                             children: [
-//                               FittedBox(
-//                                 child: Text(
-//                                   '${wordsCard['enword']}',
-//                                   style: GoogleFonts.mooli(
-//                                     fontSize: 30,
-//                                     color: Colors.grey[800],
-//                                     fontWeight: FontWeight.bold,
-//                                   ),
-//                                 ),
-//                               ),
-//                               Expanded(
-//                                 child: Row(
-//                                   mainAxisAlignment:
-//                                       MainAxisAlignment.spaceBetween,
-//                                   children: [
-//                                     FittedBox(
-//                                       child: Text(
-//                                         cuttedDate,
-//                                         style: GoogleFonts.mooli(
-//                                           fontSize: 15,
-//                                           color: Colors.grey[600],
+// Padding(
+//                                           padding: const EdgeInsets.all(20),
+//                                           child: Row(
+//                                             mainAxisAlignment:
+//                                                 MainAxisAlignment.spaceBetween,
+//                                             children: [
+//                                               Expanded(
+//                                                 child: Column(
+//                                                   mainAxisAlignment:
+//                                                       MainAxisAlignment.end,
+//                                                   children: [
+//                                                     FittedBox(
+//                                                       child: Text(
+//                                                         cuttedDate,
+//                                                         style:
+//                                                             GoogleFonts.mooli(
+//                                                           fontSize: 20,
+//                                                           color: mainColor,
+//                                                           // fontWeight: FontWeight.bold,
+//                                                         ),
+//                                                       ),
+//                                                     )
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                               Expanded(
+//                                                 child: Column(
+//                                                   children: [
+//                                                     FittedBox(
+//                                                       child: Text(
+//                                                         wordsCard['enword'],
+//                                                         style:
+//                                                             GoogleFonts.mooli(
+//                                                           fontSize: 30,
+//                                                           // color:
+//                                                           //     Colors.grey[700],
+//                                                           color: Colors.white,
+//                                                           fontWeight:
+//                                                               FontWeight.bold,
+//                                                         ),
+//                                                       ),
+//                                                     )
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                               Expanded(
+//                                                 child: Column(
+//                                                   mainAxisAlignment:
+//                                                       MainAxisAlignment.end,
+//                                                   children: [
+//                                                     FittedBox(
+//                                                         child: Text(
+//                                                       wordsCard['arword'],
+//                                                       style: GoogleFonts.mooli(
+//                                                         fontSize: 25,
+//                                                         color: Colors.grey[600],
+//                                                         // fontWeight: FontWeight.bold,
+//                                                       ),
+//                                                     ))
+//                                                   ],
+//                                                 ),
+//                                               ),
+//                                             ],
+//                                           ),
 //                                         ),
-//                                       ),
-//                                     ),
-//                                     // const Expanded(child: SizedBox()),
-//                                     FittedBox(
-//                                       child: Text(
-//                                         'مbbbbvvvvvvvvvvvvvvvvvvvvvsbbbbbbbbbbbbbbbbbbرحباً',
-//                                         style: GoogleFonts.mooli(
-//                                           fontSize: 25,
-//                                           color: Colors.grey[600],
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ],
-//                           ),
-//                         ),
-//                       ),

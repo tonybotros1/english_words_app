@@ -50,13 +50,22 @@ class DatabaseHelper {
   }
 
   // Delete
-  Future<int> delete(int id, String table) async {
+  Future<int> delete(String table,String idColumn,int id) async {
     Database dbClient = await db;
-    return await dbClient.delete(table, where: '$id');
+    return await dbClient.delete(table, where: '$idColumn = ?',whereArgs: [id]);
   }
 
+// get in DESC sorting
   Future<List<Map<String, dynamic>>> queryAllOrderBy(String table) async {
     Database dbClient = await db;
     return await dbClient.query(table, orderBy: 'date DESC');
   }
+
+
+// update values
+  Future<int> update(String table, Map<String, dynamic> values, String idColumn, int id) async {
+  Database dbClient = await db;
+  return await dbClient.update(table, values, where: '$idColumn = ?', whereArgs: [id]);
+}
+
 }

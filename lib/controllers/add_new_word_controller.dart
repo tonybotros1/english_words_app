@@ -22,10 +22,10 @@ class NewWordController extends GetxController {
     print(data);
   }
 
-  deleteData(id) async {
-    var dbHelper = DatabaseHelper();
-    await dbHelper.delete(id, 'wordsTable');
-  }
+  // deleteData(id) async {
+  //   var dbHelper = DatabaseHelper();
+  //   await dbHelper.delete(id, 'wordsTable');
+  // }
 
   addData(Map<String, dynamic> newData) async {
     var dbHelper = DatabaseHelper();

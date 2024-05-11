@@ -1,15 +1,12 @@
-import 'package:flutter/cupertino.dart';
+import 'package:english_words_app/screens/main_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../consts.dart';
-import '../controllers/add_new_word_controller.dart';
+import '../controllers/edit_word_controller.dart';
 
-class NewWordScreen extends StatelessWidget {
-  NewWordScreen({super.key});
-
-  final NewWordController newWordController = Get.put(NewWordController());
+class EditWordScreen extends StatelessWidget {
+  const EditWordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +14,7 @@ class NewWordScreen extends StatelessWidget {
       backgroundColor: backgroundColor,
       appBar: AppBar(
         title: const Text(
-          'New Word',
+          'Edit Infos',
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -36,8 +33,8 @@ class NewWordScreen extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate(
               [
-                GetBuilder<NewWordController>(
-                  init: NewWordController(),
+                GetBuilder<EditWordController>(
+                  init: EditWordController(),
                   builder: (controller) {
                     return Form(
                       child: Column(
@@ -82,8 +79,8 @@ class NewWordScreen extends StatelessWidget {
                                       MaterialStateProperty.all<Color>(
                                           mainColor)),
                               onPressed: () async {
-                                await controller.addNewWord();
-                                Get.back();
+                                await controller.editCard(controller.id);
+                                Get.offAll(() => MainScreen());
                               },
                               child: controller.loading == true
                                   ? const CircularProgressIndicator(
@@ -110,48 +107,47 @@ class NewWordScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Row myTextFormField({
-    required String lableName,
-    required String hintName,
-    required TextEditingController controller,
-    Icon? icon,
-  }) {
-    return Row(
-      children: [
-        Expanded(
-            flex: 1,
-            child: Padding(
-                padding: const EdgeInsets.fromLTRB(25, 50, 0, 20),
-                child: icon)),
-        Expanded(
-          flex: 7,
-          child: SizedBox(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(30, 20, 40, 20),
-              child: TextFormField(
-                style: const TextStyle(color: Colors.white),
-                controller: controller,
-                decoration: InputDecoration(
-                    enabledBorder: const UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    focusedBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.blue.shade300)),
-                    floatingLabelStyle: TextStyle(
-                      color: Colors.blue.shade300,
-                    ),
-                    labelText: lableName,
-                    labelStyle: const TextStyle(color: Colors.white),
-                    alignLabelWithHint: true,
-                    hintText: hintName,
-                    hintStyle: const TextStyle(color: Colors.grey)),
-              ),
+Row myTextFormField({
+  required String lableName,
+  required String hintName,
+  required TextEditingController controller,
+  Icon? icon,
+}) {
+  return Row(
+    children: [
+      Expanded(
+          flex: 1,
+          child: Padding(
+              padding: const EdgeInsets.fromLTRB(25, 50, 0, 20), child: icon)),
+      Expanded(
+        flex: 7,
+        child: SizedBox(
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(30, 20, 40, 20),
+            child: TextFormField(
+              style: const TextStyle(color: Colors.white),
+              controller: controller,
+              decoration: InputDecoration(
+                  enabledBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white)),
+                  focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade300)),
+                  floatingLabelStyle: TextStyle(
+                    color: Colors.blue.shade300,
+                  ),
+                  labelText: lableName,
+                  labelStyle: const TextStyle(color: Colors.white),
+                  alignLabelWithHint: true,
+                  hintText: hintName,
+                  hintStyle: const TextStyle(color: Colors.grey)),
             ),
           ),
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
 }
 
 Row descriptiontBox({
@@ -177,6 +173,7 @@ Row descriptiontBox({
             width: Get.width,
             child: TextFormField(
               style: const TextStyle(color: Colors.white),
+              controller: controller,
               decoration: InputDecoration(
                   labelStyle: const TextStyle(color: Colors.white),
                   labelText: lableName,
@@ -209,49 +206,3 @@ Row descriptiontBox({
     ],
   );
 }
-
-
-// GetBuilder<NewWordController>(
-//           init: NewWordController(),
-//           builder: (controller) {
-//             return Column(
-//               children: [
-//                 myTextFormField(
-//                   lableName: 'English word',
-//                   hintName: 'Enter english word',
-//                   controller: controller.enWord,
-//                   icon: const Icon(
-//                     Icons.language,
-//                     color: Colors.grey,
-//                     size: 30,
-//                   ),
-//                 ),
-//                 myTextFormField(
-//                   lableName: 'Arabic word',
-//                   hintName: 'Enter arabic word',
-//                   controller: controller.arWord,
-//                   icon: const Icon(
-//                     Icons.translate,
-//                     color: Colors.grey,
-//                     size: 30,
-//                   ),
-//                 ),
-//                 descriptiontBox(
-//                     lableName: 'Notes', controller: controller.notes),
-//                 const Expanded(flex: 7, child: SizedBox()),
-//                 Align(
-//                   alignment: Alignment.bottomCenter,
-//                   child: ElevatedButton(
-//                     onPressed: () {
-//                       // Handle button press
-//                     },
-//                     child: Text(
-//                       'Submit',
-//                       style: TextStyle(color: mainColor),
-//                     ),
-//                   ),
-//                 ),
-//                 const Expanded(flex: 2, child: SizedBox())
-//               ],
-//             );
-//           }),
