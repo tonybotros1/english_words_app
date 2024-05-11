@@ -156,16 +156,24 @@ class MainScreen extends StatelessWidget {
                       )
                     : SizedBox(
                         height: Get.height * 0.8,
-                        child: const Center(
-                          child: Text(
-                            'No words yet',
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.grey,
-                              fontStyle: FontStyle.italic,
+                        child: Center(
+                            child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/cat.png',
+                              width: 200,
+                              color: Colors.white,
                             ),
-                          ),
-                        ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            const Text(
+                              'No Cards Yet',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        )),
                       ),
               ),
             );
