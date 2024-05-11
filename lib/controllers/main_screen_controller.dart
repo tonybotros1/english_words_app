@@ -19,8 +19,8 @@ class MainScreenController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchData();
-    // timer = Timer.periodic(const Duration(seconds: 2), (_) => fetchData());
+    // fetchData();
+    timer = Timer.periodic(const Duration(seconds: 2), (_) => fetchData());
   }
 
   fetchData() async {
