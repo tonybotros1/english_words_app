@@ -27,6 +27,5 @@ class MainScreenController extends GetxController {
     var dbHelper = DatabaseHelper();
     data.value = await dbHelper.queryAllOrderBy('wordsTable');
     print(data);
-    print('fffffffffffffffffffffffffff');
   }
 }
