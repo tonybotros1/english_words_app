@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'dart:async';
 
 import 'package:get/get_rx/get_rx.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class MainScreenController extends GetxController {
   TextEditingController enword = TextEditingController();
@@ -14,13 +15,28 @@ class MainScreenController extends GetxController {
 
   late Timer timer;
 
+  RxBool showFilter = RxBool(false);
+
+  final scrollOffset = 0.0.obs;
+  final _opacity = 0.0.obs;
+  double get opacity => _opacity.value;
+
   RxBool isInScreen = RxBool(true);
 
   @override
   void onInit() {
-    super.onInit();
+    ever(scrollOffset, (double offset) {
+      if (offset > 0) {
+        // Start animation when scrolling down
+        _opacity.value = 1.0;
+      } else {
+        // Reverse animation when scrolling up
+        _opacity.value = 0.0;
+      }
+    });
     // fetchData();
     timer = Timer.periodic(const Duration(seconds: 2), (_) => fetchData());
+    super.onInit();
   }
 
   fetchData() async {
