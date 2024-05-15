@@ -44,138 +44,130 @@ class MainScreen extends StatelessWidget {
           builder: (controller) {
             return SingleChildScrollView(
               child: RefreshIndicator(
-                color: mainColor,
-                onRefresh: () async {
-                  await Future.delayed(const Duration(seconds: 1));
-                  await controller.fetchData();
-                },
-                child: controller.data.isNotEmpty
-                    ? SizedBox(
-                        height: Get.height * 0.8,
-                        child: ListView.builder(
-                            itemCount: controller.data.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, i) {
-                              Map wordsCard = controller.data[i];
-                              String date = wordsCard['date'];
-                              String cuttedDate =
-                                  date.substring(0, date.length - 16);
-                              return GestureDetector(
-                                onTap: () {
-                                  controller.isInScreen.value = false;
-                                  Get.to(
-                                    () => WordDetailsScreen(),
-                                    arguments: Word(
-                                      arWord: wordsCard['arword'],
-                                      enWord: wordsCard['enword'],
-                                      date: wordsCard['date'],
-                                      description: wordsCard['description'],
-                                      favorite: wordsCard['favorite'],
-                                      id: wordsCard['id'],
-                                    ),
-                                    transition: Transition.size,
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SizedBox(
-                                      height: null,
-                                      child: Card(
-                                          elevation: 10,
-                                          shadowColor: Colors.grey,
-                                          // shadowColor: Colors.white,
-                                          color: cardColor,
-                                          surfaceTintColor: cardColor,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(32.0),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(
-                                                        // 'tony botros is the best in the whole world',
-                                                        wordsCard['enword'],
-                                                        style:
-                                                            GoogleFonts.mooli(
-                                                          fontSize: 30,
-                                                          // color:
-                                                          //     Colors.grey[700],
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 20,
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.end,
-                                                  children: [
-                                                    Flexible(
-                                                      child: Text(
-                                                        cuttedDate,
-                                                        style:
-                                                            GoogleFonts.mooli(
-                                                          fontSize: 20,
-                                                          color: Colors
-                                                              .blue.shade300,
-                                                          // fontWeight: FontWeight.bold,
-                                                        ),
+                  color: mainColor,
+                  onRefresh: () async {
+                    await Future.delayed(const Duration(seconds: 1));
+                    await controller.fetchData();
+                  },
+                  child: controller.data.isEmpty
+                      ? SizedBox(
+                          height: Get.height * 0.8,
+                          child: Center(
+                              child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/cat.png',
+                                width: 200,
+                                color: Colors.white,
+                              ),
+                              const SizedBox(
+                                height: 30,
+                              ),
+                              const Text(
+                                'No Cards Yet',
+                                style: TextStyle(color: Colors.white),
+                              )
+                            ],
+                          )),
+                        )
+                      : ListView.builder(
+                          itemCount: controller.data.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, i) {
+                            Map wordsCard = controller.data[i];
+                            String date = wordsCard['date'];
+                            String cuttedDate =
+                                date.substring(0, date.length - 16);
+                            return GestureDetector(
+                              onTap: () {
+                                controller.isInScreen.value = false;
+                                Get.to(
+                                  () => WordDetailsScreen(),
+                                  arguments: Word(
+                                    arWord: wordsCard['arword'],
+                                    enWord: wordsCard['enword'],
+                                    date: wordsCard['date'],
+                                    description: wordsCard['description'],
+                                    favorite: wordsCard['favorite'],
+                                    id: wordsCard['id'],
+                                  ),
+                                  transition: Transition.size,
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: SizedBox(
+                                    height: null,
+                                    child: Card(
+                                        elevation: 10,
+                                        shadowColor: Colors.grey,
+                                        // shadowColor: Colors.white,
+                                        color: cardColor,
+                                        surfaceTintColor: cardColor,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(32.0),
+                                          child: Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      // 'tony botros is the best in the whole world',
+                                                      wordsCard['enword'],
+                                                      style: GoogleFonts.mooli(
+                                                        fontSize: 30,
+                                                        // color:
+                                                        //     Colors.grey[700],
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold,
                                                       ),
                                                     ),
-                                                    Flexible(
-                                                      child: Text(
-                                                        wordsCard['arword'],
-                                                        textAlign:
-                                                            TextAlign.end,
-                                                        // 'طوني بطرس هو الأفضل في العالم كله',
-                                                        style:
-                                                            GoogleFonts.mooli(
-                                                          fontSize: 25,
-                                                          color: Colors.white,
-                                                          // fontWeight: FontWeight.bold,
-                                                        ),
+                                                  )
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 20,
+                                              ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.end,
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      cuttedDate,
+                                                      style: GoogleFonts.mooli(
+                                                        fontSize: 20,
+                                                        color: Colors
+                                                            .blue.shade300,
+                                                        // fontWeight: FontWeight.bold,
                                                       ),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                          ))),
-                                ),
-                              );
-                            }),
-                      )
-                    : SizedBox(
-                        height: Get.height * 0.8,
-                        child: Center(
-                            child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/cat.png',
-                              width: 200,
-                              color: Colors.white,
-                            ),
-                            const SizedBox(
-                              height: 30,
-                            ),
-                            const Text(
-                              'No Cards Yet',
-                              style: TextStyle(color: Colors.white),
-                            )
-                          ],
-                        )),
-                      ),
-              ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      wordsCard['arword'],
+                                                      textAlign: TextAlign.end,
+                                                      // 'طوني بطرس هو الأفضل في العالم كله',
+                                                      style: GoogleFonts.mooli(
+                                                        fontSize: 25,
+                                                        color: Colors.white,
+                                                        // fontWeight: FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
+                                        ))),
+                              ),
+                            );
+                          })),
             );
           }),
     );
