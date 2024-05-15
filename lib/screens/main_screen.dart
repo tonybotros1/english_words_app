@@ -30,7 +30,7 @@ class MainScreen extends StatelessWidget {
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: mainColor,
+        backgroundColor: floatingActionButtonColor,
         onPressed: () {
           Get.to(() => NewWordScreen(), transition: Transition.size);
         },
