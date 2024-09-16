@@ -66,4 +66,25 @@ class WordDetailsController extends GetxController {
     }
     update();
   }
+
+  // this function is to add the word to favorite
+  addToFavorite() async {
+    var value = 0;
+    if (favorite == 1) {
+      value = 0;
+      favorite = 0;
+    } else {
+      value = 1;
+      favorite = 1;
+    }
+    Map<String, dynamic> newData = {
+      'arword': arword,
+      'enword': enword,
+      'description': description,
+      'favorite': value
+    };
+    var dbHelper = DatabaseHelper();
+    await dbHelper.update('wordsTable', newData, 'id', id!);
+    update();
+  }
 }

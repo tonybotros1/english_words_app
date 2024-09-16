@@ -61,6 +61,11 @@ class DatabaseHelper {
     return await dbClient.query(table, orderBy: 'date DESC');
   }
 
+Future<List<Map<String, dynamic>>> queryAllFilterBy(String table, filter) async {
+    Database dbClient = await db;
+    return await dbClient.query(table, orderBy: 'date DESC', where: 'favorite = 1');
+  }
+
 
 // update values
   Future<int> update(String table, Map<String, dynamic> values, String idColumn, int id) async {

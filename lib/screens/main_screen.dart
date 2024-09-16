@@ -53,7 +53,7 @@ class MainScreen extends StatelessWidget {
                     0; // Reset scroll offset if drag is canceled
               },
               child: SingleChildScrollView(
-                child: controller.data.isEmpty
+                child: controller.alDdata.isEmpty
                     ? SizedBox(
                         height: Get.height * 0.8,
                         child: Center(
@@ -82,7 +82,7 @@ class MainScreen extends StatelessWidget {
                                   padding:
                                       const EdgeInsets.fromLTRB(16, 8, 16, 8),
                                   child: Opacity(
-                                    opacity: controller.opacity,
+                                    opacity: controller.opacity.value,
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -118,10 +118,10 @@ class MainScreen extends StatelessWidget {
                           const SizedBox(),
                           ListView.builder(
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.data.length,
+                              itemCount: controller.alDdata.length,
                               shrinkWrap: true,
                               itemBuilder: (context, i) {
-                                Map wordsCard = controller.data[i];
+                                Map wordsCard = controller.alDdata[i];
                                 String date = wordsCard['date'];
                                 String cuttedDate =
                                     date.substring(0, date.length - 16);

@@ -103,12 +103,33 @@ class WordDetailsScreen extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'English',
-                            style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text(
+                                'English',
+                                style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                              const Spacer(),
+                              IconButton(
+                                  onPressed: () {
+                                    controller.addToFavorite();
+                                  },
+                                  icon: controller.favorite == 1
+                                      ? const Icon(
+                                          Icons.star,
+                                          size: 35,
+                                          color: Colors.yellow,
+                                        )
+                                      : const Icon(
+                                          Icons.star,
+                                          size: 35,
+                                          color: Colors.white,
+                                        ))
+                            ],
                           ),
                           const SizedBox(
                             height: 60,
