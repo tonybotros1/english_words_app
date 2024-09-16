@@ -9,7 +9,10 @@ class MainScreenController extends GetxController {
   TextEditingController description = TextEditingController();
   var alDdata = [].obs;
   var favData = [].obs;
+  var selectedFilter = 'All'.obs;
   List wordsCard = [];
+
+  
 
   late Timer timer;
 
@@ -41,6 +44,8 @@ class MainScreenController extends GetxController {
   fetchData() async {
     var dbHelper = DatabaseHelper();
     alDdata.value = await dbHelper.queryAllOrderBy('wordsTable');
+    favData.value = await dbHelper.queryAllFilterBy('wordsTable', 'favorite');
+
     // print(data);
   }
 

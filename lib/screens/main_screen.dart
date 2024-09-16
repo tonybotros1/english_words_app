@@ -91,7 +91,10 @@ class MainScreen extends StatelessWidget {
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor:
                                                     floatingActionButtonColor),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              controller.selectedFilter.value =
+                                                  'All';
+                                            },
                                             child: const Text(
                                               'All',
                                               style: TextStyle(
@@ -104,7 +107,10 @@ class MainScreen extends StatelessWidget {
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor:
                                                     floatingActionButtonColor),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              controller.selectedFilter.value =
+                                                  'Favourites';
+                                            },
                                             child: const Text(
                                               'Favourites',
                                               style: TextStyle(
@@ -116,114 +122,135 @@ class MainScreen extends StatelessWidget {
                                 )
                               : const SizedBox(),
                           const SizedBox(),
-                          ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: controller.alDdata.length,
-                              shrinkWrap: true,
-                              itemBuilder: (context, i) {
-                                Map wordsCard = controller.alDdata[i];
-                                String date = wordsCard['date'];
-                                String cuttedDate =
-                                    date.substring(0, date.length - 16);
-                                return GestureDetector(
-                                  onTap: () {
-                                    controller.isInScreen.value = false;
-                                    Get.to(
-                                      () => WordDetailsScreen(),
-                                      arguments: Word(
-                                        arWord: wordsCard['arword'],
-                                        enWord: wordsCard['enword'],
-                                        date: wordsCard['date'],
-                                        description: wordsCard['description'],
-                                        favorite: wordsCard['favorite'],
-                                        id: wordsCard['id'],
-                                      ),
-                                      transition: Transition.size,
-                                    );
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: SizedBox(
-                                        height: null,
-                                        child: Card(
-                                            elevation: 10,
-                                            shadowColor: Colors.grey,
-                                            // shadowColor: Colors.white,
-                                            color: cardColor,
-                                            surfaceTintColor: cardColor,
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.all(32.0),
-                                              child: Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          // 'tony botros is the best in the whole world',
-                                                          wordsCard['enword'],
-                                                          style:
-                                                              GoogleFonts.mooli(
-                                                            fontSize: 30,
-                                                            // color:
-                                                            //     Colors.grey[700],
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                  const SizedBox(
-                                                    height: 20,
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          cuttedDate,
-                                                          style:
-                                                              GoogleFonts.mooli(
-                                                            fontSize: 20,
-                                                            color: Colors
-                                                                .blue.shade300,
-                                                            // fontWeight: FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Flexible(
-                                                        child: Text(
-                                                          wordsCard['arword'],
-                                                          textAlign:
-                                                              TextAlign.end,
-                                                          // 'طوني بطرس هو الأفضل في العالم كله',
-                                                          style:
-                                                              GoogleFonts.mooli(
-                                                            fontSize: 25,
-                                                            color: Colors.white,
-                                                            // fontWeight: FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            ))),
-                                  ),
-                                );
-                              }),
+                          controller.selectedFilter.value == 'All'
+                              ? ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: controller.alDdata.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, i) {
+                                    String cuttedDate =
+                                        controller.alDdata[i]['date'].substring(
+                                            0,
+                                            controller
+                                                    .alDdata[i]['date'].length -
+                                                16);
+                                    return myCard(controller,
+                                        controller.alDdata, i, cuttedDate);
+                                  })
+                              : ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: controller.favData.length,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, i) {
+                                    String cuttedDate =
+                                        controller.favData[i]['date'].substring(
+                                            0,
+                                            controller
+                                                    .favData[i]['date'].length -
+                                                16);
+                                    return myCard(controller,
+                                        controller.favData, i, cuttedDate);
+                                  }),
                         ],
                       ),
               ),
             );
           }),
+    );
+  }
+
+  GestureDetector myCard(
+      MainScreenController controller, List data, int i, String cuttedDate) {
+    return GestureDetector(
+      onTap: () {
+        controller.isInScreen.value = false;
+        Get.to(
+          () => WordDetailsScreen(),
+          arguments: Word(
+            arWord: data[i]['arword'],
+            enWord: data[i]['enword'],
+            date: data[i]['date'],
+            description: data[i]['description'],
+            favorite: data[i]['favorite'],
+            id: data[i]['id'],
+          ),
+          transition: Transition.size,
+        );
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+            height: null,
+            child: Card(
+                elevation: 10,
+                shadowColor: Colors.grey,
+                // shadowColor: Colors.white,
+                color: cardColor,
+                surfaceTintColor: cardColor,
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              // 'tony botros is the best in the whole world',
+                              data[i]['enword'],
+                              style: GoogleFonts.mooli(
+                                fontSize: 30,
+                                // color:
+                                //     Colors.grey[700],
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          const Spacer(),
+                          data[i]['favorite'] == 1?
+                         const Icon(
+                            Icons.star,
+                            size: 35,
+                            color: Colors.yellow,
+                          ): const SizedBox()
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              cuttedDate,
+                              style: GoogleFonts.mooli(
+                                fontSize: 20,
+                                color: Colors.blue.shade300,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                          Flexible(
+                            child: Text(
+                              data[i]['arword'],
+                              textAlign: TextAlign.end,
+                              // 'طوني بطرس هو الأفضل في العالم كله',
+                              style: GoogleFonts.mooli(
+                                fontSize: 25,
+                                color: Colors.white,
+                                // fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ))),
+      ),
     );
   }
 }
