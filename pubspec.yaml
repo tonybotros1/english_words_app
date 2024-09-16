@@ -43,11 +43,13 @@ dependencies:
   flutter_tts: ^4.0.2
   rename: ^3.0.2
 
+  path: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^4.0.0
 
 
 flutter_launcher_icons:

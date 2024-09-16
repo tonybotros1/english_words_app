@@ -76,7 +76,7 @@ class EditWordScreen extends StatelessWidget {
                             child: ElevatedButton(
                               style: ButtonStyle(
                                   backgroundColor:
-                                      MaterialStateProperty.all<Color>(
+                                      WidgetStateProperty.all<Color>(
                                           mainColor)),
                               onPressed: () async {
                                 await controller.editCard(controller.id);

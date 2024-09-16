@@ -1,7 +1,6 @@
 import 'package:english_words_app/consts.dart';
 import 'package:english_words_app/models/words.dart';
 import 'package:english_words_app/screens/add_new_word_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';

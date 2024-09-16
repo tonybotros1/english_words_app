@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'dart:async';
 
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 
 class MainScreenController extends GetxController {
   TextEditingController enword = TextEditingController();
@@ -42,6 +40,6 @@ class MainScreenController extends GetxController {
   fetchData() async {
     var dbHelper = DatabaseHelper();
     data.value = await dbHelper.queryAllOrderBy('wordsTable');
-    print(data);
+    // print(data);
   }
 }

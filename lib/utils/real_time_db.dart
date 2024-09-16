@@ -21,7 +21,7 @@ class DatabaseService extends GetxService {
     // For example, you can listen for changes using database triggers or polling the database periodically
     // Whenever there's a change in the database, emit new data to the stream
     // For demonstration purposes, you can emit sample data every 5 seconds
-    Timer.periodic(Duration(seconds: 5), (timer) async {
+    Timer.periodic(const Duration(seconds: 5), (timer) async {
       List<Map<String, dynamic>> newData = await db.query('your_table');
       _dataStream.value = newData;
     });

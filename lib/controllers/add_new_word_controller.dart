@@ -19,7 +19,7 @@ class NewWordController extends GetxController {
   void fetchData() async {
     var dbHelper = DatabaseHelper();
     data.value = await dbHelper.queryAll('wordsTable');
-    print(data);
+    // print(data);
   }
 
   // deleteData(id) async {
