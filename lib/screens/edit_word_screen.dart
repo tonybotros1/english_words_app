@@ -17,7 +17,7 @@ class EditWordScreen extends StatelessWidget {
           'Edit Infos',
           style: TextStyle(color: Colors.white),
         ),
-        centerTitle: true,
+        // centerTitle: true,
         backgroundColor: mainColor,
         leading: IconButton(
             onPressed: () {

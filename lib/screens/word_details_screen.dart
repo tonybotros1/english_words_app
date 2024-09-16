@@ -80,7 +80,7 @@ class WordDetailsScreen extends StatelessWidget {
             'Infos',
             style: TextStyle(color: Colors.white),
           ),
-          centerTitle: true,
+          // centerTitle: true,
           backgroundColor: mainColor,
           leading: IconButton(
             onPressed: () {

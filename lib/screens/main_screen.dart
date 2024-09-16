@@ -17,15 +17,22 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: Colors.white,
       backgroundColor: backgroundColor,
       appBar: AppBar(
         title: const Text(
           'All Words',
           style: TextStyle(color: Colors.white),
         ),
-        centerTitle: true,
+        // centerTitle: true,
         backgroundColor: mainColor,
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ))
+        ],
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
       floatingActionButton: FloatingActionButton(
@@ -89,8 +96,12 @@ class MainScreen extends StatelessWidget {
                                       children: [
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor: controller.selectedFilter.value == 'All'?
-                                                    Colors.black:floatingActionButtonColor),
+                                                backgroundColor: controller
+                                                            .selectedFilter
+                                                            .value ==
+                                                        'All'
+                                                    ? Colors.black
+                                                    : floatingActionButtonColor),
                                             onPressed: () {
                                               controller.selectedFilter.value =
                                                   'All';
@@ -105,9 +116,12 @@ class MainScreen extends StatelessWidget {
                                         ),
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    controller.selectedFilter.value == 'Favourites'?
-                                                    Colors.black:floatingActionButtonColor),
+                                                backgroundColor: controller
+                                                            .selectedFilter
+                                                            .value ==
+                                                        'Favourites'
+                                                    ? Colors.black
+                                                    : floatingActionButtonColor),
                                             onPressed: () {
                                               controller.selectedFilter.value =
                                                   'Favourites';
@@ -209,12 +223,13 @@ class MainScreen extends StatelessWidget {
                             ),
                           ),
                           const Spacer(),
-                          data[i]['favorite'] == 1?
-                         const Icon(
-                            Icons.star,
-                            size: 35,
-                            color: Colors.yellow,
-                          ): const SizedBox()
+                          data[i]['favorite'] == 1
+                              ? const Icon(
+                                  Icons.star,
+                                  size: 35,
+                                  color: Colors.yellow,
+                                )
+                              : const SizedBox()
                         ],
                       ),
                       const SizedBox(
