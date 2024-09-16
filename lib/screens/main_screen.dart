@@ -89,8 +89,8 @@ class MainScreen extends StatelessWidget {
                                       children: [
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
-                                                backgroundColor:
-                                                    floatingActionButtonColor),
+                                                backgroundColor: controller.selectedFilter.value == 'All'?
+                                                    Colors.black:floatingActionButtonColor),
                                             onPressed: () {
                                               controller.selectedFilter.value =
                                                   'All';
@@ -106,7 +106,8 @@ class MainScreen extends StatelessWidget {
                                         ElevatedButton(
                                             style: ElevatedButton.styleFrom(
                                                 backgroundColor:
-                                                    floatingActionButtonColor),
+                                                    controller.selectedFilter.value == 'Favourites'?
+                                                    Colors.black:floatingActionButtonColor),
                                             onPressed: () {
                                               controller.selectedFilter.value =
                                                   'Favourites';
