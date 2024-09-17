@@ -52,6 +52,5 @@ class MainScreenController extends GetxController {
   fetchFavData() async {
     var dbHelper = DatabaseHelper();
     favData.value = await dbHelper.queryAllFilterBy('wordsTable', 'favorite');
-    print(favData);
   }
 }

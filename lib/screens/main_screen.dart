@@ -26,12 +26,31 @@ class MainScreen extends StatelessWidget {
         // centerTitle: true,
         backgroundColor: mainColor,
         actions: [
-          IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert,
-                color: Colors.white,
-              ))
+          PopupMenuButton(
+              iconColor: Colors.white,
+              iconSize: 25,
+              color: backgroundColor,
+              position: PopupMenuPosition.under,
+              onSelected: (value) {},
+              itemBuilder: (BuildContext context) {
+                return [
+                  const PopupMenuItem(
+                    height: 60,
+                    value: 'Quiz',
+                    child: Text(
+                      'Quiz',
+                      style: TextStyle(fontSize: 18, color: Colors.white),
+                    ),
+                  ),
+                  const PopupMenuItem(
+                      height: 60,
+                      value: 'Settings',
+                      child: Text(
+                        'Settings',
+                        style: TextStyle(fontSize: 18, color: Colors.white),
+                      )),
+                ];
+              })
         ],
       ),
       floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
